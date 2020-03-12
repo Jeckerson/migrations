@@ -3,25 +3,25 @@ on:
     types:
       - created
 
-name: Upload Release Phar
+name: Upload Phar to Release
 
 jobs:
   build:
-    name: Create Release Phar
+    name: Compile && Upload Phar
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Compile
+      - name: Compile phalcon-migrations.phar
         run: |
           composer install --ignore-platform-reqs
           vendor/bin/box compile
 
-      - name: Test
-        run: ls -la
+      - name: Test execution of compiled .phar
+        run: php phalcon-migrations.phar
 
-      - name: Upload Release
+      - name: Upload to Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
