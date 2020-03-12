@@ -1,7 +1,7 @@
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types:
+      - created
 
 name: Upload Release Phar
 
@@ -30,4 +30,4 @@ jobs:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./phalcon-migrations.phar
           asset_name: phalcon-migrations.phar
-          asset_content_type: application/zip
+          asset_content_type: application/octet-stream
